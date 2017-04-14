@@ -52,14 +52,13 @@ public class MainActivity extends AppCompatActivity {
         if (!fingerprintManager.isHardwareDetected()) {
             textView.setText("Finger Print Hardware not found");
         } else {
-            Toast.makeText(this, "hardware detected", Toast.LENGTH_SHORT).show();
             if (ActivityCompat.checkSelfPermission(this,
                     android.Manifest.permission.USE_FINGERPRINT)
                     != PackageManager.PERMISSION_GRANTED) {
                 textView.setText
                         ("Fingerprint Authentication requires permission");
             } else {
-                Toast.makeText(this, "Permissions Granted", Toast.LENGTH_SHORT).show();
+
                 if (!fingerprintManager.hasEnrolledFingerprints()) {
                     textView.setText("You need atleast one fingerprint");
                 } else {
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText
                                 ("Lock screen not enabled in settings");
                     } else {
-                        Toast.makeText(this, "Key Guard Secured", Toast.LENGTH_SHORT).show();
+
                         generateKey();
 
                         if (cipherInit()) {
@@ -117,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
                     .setEncryptionPaddings
                             (KeyProperties.ENCRYPTION_PADDING_PKCS7)
                     .build());
-            Toast.makeText(this, "Reached 118", Toast.LENGTH_SHORT).show();
+            keyGenerator.generateKey();
+
 
         } catch (CertificateException |
                 InvalidAlgorithmParameterException e) {
